@@ -18,7 +18,7 @@ __회원 관리__
 ---
 __ERD__
 <br/><br/>
-![communityERD](https://github.com/user-attachments/assets/6acc1c68-757e-489f-a9f1-82b77293fc53)
+![communityERD](https://github.com/user-attachments/assets/04132832-027d-468b-a74b-2491598e4d1c)
 
 ---
 __STACK__
