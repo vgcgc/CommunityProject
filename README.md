@@ -16,6 +16,11 @@ __회원 관리__
 4. 회원탈퇴
 
 ---
+__ERD__
+<br/><br/>
+![communityERD](https://github.com/user-attachments/assets/04132832-027d-468b-a74b-2491598e4d1c)
+
+---
 __STACK__
 <br/><br/>
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
