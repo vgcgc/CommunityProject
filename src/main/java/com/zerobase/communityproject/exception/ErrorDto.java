@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 @Data
 @Builder
 public class ErrorDto {
+// 에러 응답용 DTO 작성
 
     private String code;
     private String msg;
