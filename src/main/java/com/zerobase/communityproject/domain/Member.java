@@ -16,6 +16,7 @@ import lombok.Setter;
 @Entity
 public class Member {
 
+    // DB member 작성
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;

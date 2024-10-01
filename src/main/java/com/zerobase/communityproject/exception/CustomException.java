@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public class CustomException extends RuntimeException {
+// ErrorCode 의 객체 전환
     private final HttpStatus status;
     private final String code;
     private final String message;

@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Post {
 
+    // DB post 작성
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

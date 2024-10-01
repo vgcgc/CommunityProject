@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Comment {
 
+    # DB comment 작성
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

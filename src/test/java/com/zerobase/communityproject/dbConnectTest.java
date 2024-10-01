@@ -18,6 +18,7 @@ public class dbConnectTest {
     @Autowired
     MemberRepository memberRepository;
 
+    // DB 연결 테스트 로직
     @Test
     void insertMemberTest(){
         Member member = new Member("id", "pw", "name", "role");
