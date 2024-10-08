@@ -19,10 +19,12 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String writer;
+    @Column(name = "writer_id")
+    private Long writerId;
     private String title;
     private String content;
     @Column(name = "create_date")
     @CreationTimestamp
     private LocalDateTime createdAt;
+    private String writer;
 }

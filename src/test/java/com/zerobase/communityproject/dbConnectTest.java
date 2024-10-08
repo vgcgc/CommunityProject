@@ -18,9 +18,10 @@ public class dbConnectTest {
     @Autowired
     MemberRepository memberRepository;
 
+    // 테스트 로직
     @Test
     void insertMemberTest(){
-        Member member = new Member("id", "pw", "name", "role");
+        Member member = new Member("id", "pw", "name", "USER");
         memberRepository.save(member);
         List<Member> members = memberRepository.findAll();
         assertFalse(members.isEmpty());
