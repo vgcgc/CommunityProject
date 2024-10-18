@@ -1,9 +1,23 @@
 package com.zerobase.communityproject.repository;
 
 import com.zerobase.communityproject.domain.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+
+    Boolean existsByTitleAndWriterId(String title, Long writerId);
+
+    void deleteByTitleAndWriter(String title, String writer);
+
+    Post findByTitleAndWriterId(String title, Long writerIdx);
+
+    Page<Post> findAllByWriterId(Long writerIdx, Pageable pageable);
+
+    Page<Post> findAllByTitle(String title, Pageable pageable);
 }
