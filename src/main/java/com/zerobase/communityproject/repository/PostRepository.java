@@ -7,15 +7,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+
+    Page<Post> findFirstByOrderByIdDesc(Pageable pageable);
 
     Boolean existsByTitleAndWriterId(String title, Long writerId);
 
     void deleteByTitleAndWriter(String title, String writer);
 
-    Post findByTitleAndWriterId(String title, Long writerIdx);
+    Optional<Post> findByTitleAndWriterId(String title, Long writerIdx);
 
     Page<Post> findAllByWriterId(Long writerIdx, Pageable pageable);
 
