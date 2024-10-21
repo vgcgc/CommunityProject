@@ -23,7 +23,7 @@ public class CommentController {
     }
 
     @PutMapping
-    public ResponseEntity<?> updateComment (@RequestBody CommentRequest commentRequest) {
+    public ResponseEntity<?> updateComment (@RequestBody @Valid CommentRequest commentRequest) {
         commentRequest.setUser(memberService.getId());
         return ResponseEntity.ok(commentService.updateComment(commentRequest));
     }

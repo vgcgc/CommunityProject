@@ -11,6 +11,7 @@ import com.zerobase.communityproject.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,12 +37,11 @@ public class CommentService {
         return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedAt());
     }
 
+    @Transactional
     public CommentDto updateComment (CommentRequest request) {
 
         Comment comment = getComment(request);
-
         comment.setText(request.getText());
-        commentRepository.save(comment);
 
         return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedAt());
     }
@@ -59,9 +59,7 @@ public class CommentService {
         Post post = postRepository.findByTitleAndWriterId(request.getPostTitle(), writerIdx)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
 
-        Comment comment = commentRepository.findCommentByWriterIdAndPostIdAndCreatedAt(writerIdx, post.getId(), request.getCreatedAt())
+        return commentRepository.findCommentByWriterIdAndPostIdAndCreatedAt(writerIdx, post.getId(), request.getCreatedAt())
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
-
-        return comment;
     }
 }

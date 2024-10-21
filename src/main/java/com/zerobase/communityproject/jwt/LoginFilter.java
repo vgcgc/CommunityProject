@@ -26,6 +26,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final JWTUtil jwtUtil;
     private final RefreshRepository refreshRepository;
 
+    static final Long ACCESS_EXPIRED_MS = 600000L;
+    static final Long REFRESH_EXPIRED_MS = 86400000L;
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
 
@@ -48,8 +51,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String role = auth.getAuthority();
 
         // 토큰 생성
-        String access = jwtUtil.createJwt("access", username, role, 600000L);
-        String refresh = jwtUtil.createJwt("refresh", username, role, 86400000L);
+        String access = jwtUtil.createJwt("access", username, role, ACCESS_EXPIRED_MS);
+        String refresh = jwtUtil.createJwt("refresh", username, role, REFRESH_EXPIRED_MS);
 
         // Refresh 토큰 저장
         addRefreshEntity(username, refresh, 86400000L);
