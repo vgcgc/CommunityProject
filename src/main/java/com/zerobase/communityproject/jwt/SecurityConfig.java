@@ -24,6 +24,8 @@ public class SecurityConfig {
     private final JWTUtil jwtUtil;
     private final RefreshRepository refreshRepository;
 
+    private final String[] swaggerPath = {"/", "/swagger-ui/**", "/swagger-resources/**", "/error", "/v3/api-docs/**"};
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -46,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/member").permitAll()
                         .requestMatchers("/reissue").permitAll()
                         .requestMatchers("/post").permitAll()
+                        .requestMatchers(swaggerPath).permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
                 .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class)
