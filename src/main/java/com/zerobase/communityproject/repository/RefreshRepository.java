@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface RefreshRepository extends JpaRepository<Refresh, Long> {
 
-    Boolean existsByRefresh(String refresh);
+  Boolean existsByRefresh(String refresh);
 
-    @Transactional
-    void deleteByRefresh(String refresh);
+  @Transactional
+  void deleteByRefresh(String refresh);
 }

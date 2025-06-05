@@ -12,11 +12,11 @@ import lombok.Setter;
 @Setter
 public class Refresh {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String username;
-    private String refresh;
-    private String expiration;
+  private String username;
+  private String refresh;
+  private String expiration;
 }

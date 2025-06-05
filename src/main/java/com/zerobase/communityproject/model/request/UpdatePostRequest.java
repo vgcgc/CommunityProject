@@ -10,8 +10,8 @@ import lombok.Setter;
 @Builder
 public class UpdatePostRequest {
 
-    @NotBlank(message = "제목은 필수 입력값입니다.")
-    private String title;
-    private String content;
-    private String newTitle;
+  @NotBlank(message = "제목은 필수 입력값입니다.")
+  private String title;
+  private String content;
+  private String newTitle;
 }

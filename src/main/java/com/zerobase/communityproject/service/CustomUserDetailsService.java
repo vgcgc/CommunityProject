@@ -13,18 +13,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+  private final MemberRepository memberRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+  @Override
+  public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 
-        Member member = memberRepository.findById(id);
+    Member member = memberRepository.findById(id);
 
-        if (member != null) {
-            return new CustomUserDetails(member);
-        }
-
-        return null;
+    if (member != null) {
+      return new CustomUserDetails(member);
     }
+
+    return null;
+  }
 
 }

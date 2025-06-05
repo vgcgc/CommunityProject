@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class JoinRequest {
 
-    private String id;
-    private String pw;
-    private String name;
+  private String id;
+  private String pw;
+  private String name;
 }

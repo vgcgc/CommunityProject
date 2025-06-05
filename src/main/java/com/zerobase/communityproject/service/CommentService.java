@@ -17,50 +17,51 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CommentService {
 
-    private final MemberService memberService;
-    private final CommentRepository commentRepository;
-    private final PostRepository postRepository;
+  private final MemberService memberService;
+  private final CommentRepository commentRepository;
+  private final PostRepository postRepository;
 
-    @Transactional
-    public CommentDto createComment(CommentRequest request){
+  @Transactional
+  public CommentDto createComment(CommentRequest request) {
 
-        Long writerIdx = memberService.getUserIdx(request.getUser());
-        Post post = postRepository.findByTitleAndWriterId(request.getPostTitle(), writerIdx)
-                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
+    Long writerIdx = memberService.getUserIdx(request.getUser());
+    Post post = postRepository.findByTitleAndWriterId(request.getPostTitle(), writerIdx)
+        .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
 
-        Comment comment = Comment.builder()
-                                .writerId(writerIdx)
-                                .postId(post.getId())
-                                .text(request.getText())
-                                .writer(request.getUser()).build();
+    Comment comment = Comment.builder()
+        .writerId(writerIdx)
+        .postId(post.getId())
+        .text(request.getText())
+        .writer(request.getUser()).build();
 
-        return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedAt());
-    }
+    return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedAt());
+  }
 
-    public CommentDto updateComment (CommentRequest request) {
+  public CommentDto updateComment(CommentRequest request) {
 
-        Comment comment = getComment(request);
+    Comment comment = getComment(request);
 
-        comment.setText(request.getText());
-        commentRepository.save(comment);
+    comment.setText(request.getText());
+    commentRepository.save(comment);
 
-        return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedAt());
-    }
+    return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedAt());
+  }
 
-    public String deleteComment (CommentRequest request) {
+  public String deleteComment(CommentRequest request) {
 
-        Comment comment = getComment(request);
-        commentRepository.delete(comment);
-        return "삭제 완료";
-    }
+    Comment comment = getComment(request);
+    commentRepository.delete(comment);
+    return "삭제 완료";
+  }
 
-    private Comment getComment(CommentRequest request) {
-        Long writerIdx = memberService.getUserIdx(request.getUser());
+  private Comment getComment(CommentRequest request) {
+    Long writerIdx = memberService.getUserIdx(request.getUser());
 
-        Post post = postRepository.findByTitleAndWriterId(request.getPostTitle(), writerIdx)
-                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
+    Post post = postRepository.findByTitleAndWriterId(request.getPostTitle(), writerIdx)
+        .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
 
-      return commentRepository.findCommentByWriterIdAndPostIdAndCreatedAt(writerIdx, post.getId(), request.getCreatedAt())
-                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
-    }
+    return commentRepository.findCommentByWriterIdAndPostIdAndCreatedAt(writerIdx, post.getId(),
+            request.getCreatedAt())
+        .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
+  }
 }

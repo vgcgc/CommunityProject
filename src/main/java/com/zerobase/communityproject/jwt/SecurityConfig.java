@@ -20,48 +20,51 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final AuthenticationConfiguration authenticationConfiguration;
-    private final JWTUtil jwtUtil;
-    private final RefreshRepository refreshRepository;
+  private final AuthenticationConfiguration authenticationConfiguration;
+  private final JWTUtil jwtUtil;
+  private final RefreshRepository refreshRepository;
 
-    private final String[] swaggerPath = {"/", "/swagger-ui/**", "/swagger-resources/**", "/error", "/v3/api-docs/**"};
+  private final String[] swaggerPath = {"/", "/swagger-ui/**", "/swagger-resources/**", "/error",
+      "/v3/api-docs/**"};
 
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+  @Bean
+  public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
+      throws Exception {
+    return configuration.getAuthenticationManager();
+  }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity
-                // REST API 이므로 basic auth 및 csrf 보안을 사용하지 않음
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable)
-                // JWT 를 사용하기 때문에 세션을 사용하지 않음
-                .sessionManagement((sessionManagement) ->
-                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // 해당 API 에 대해서는 모든 요청을 허가
-                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/member").permitAll()
-                        .requestMatchers("/reissue").permitAll()
-                        .requestMatchers("/post").permitAll()
-                        .requestMatchers(swaggerPath).permitAll()
-                        .anyRequest().authenticated())
-                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
-                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class)
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class)
-        ;
-        return httpSecurity.build();
+    httpSecurity
+        // REST API 이므로 basic auth 및 csrf 보안을 사용하지 않음
+        .httpBasic(AbstractHttpConfigurer::disable)
+        .csrf(AbstractHttpConfigurer::disable)
+        .formLogin(AbstractHttpConfigurer::disable)
+        // JWT 를 사용하기 때문에 세션을 사용하지 않음
+        .sessionManagement((sessionManagement) ->
+            sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        // 해당 API 에 대해서는 모든 요청을 허가
+        .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+            .requestMatchers("/member").permitAll()
+            .requestMatchers("/reissue").permitAll()
+            .requestMatchers("/post").permitAll()
+            .requestMatchers(swaggerPath).permitAll()
+            .anyRequest().authenticated())
+        .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
+        .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class)
+        .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil,
+            refreshRepository), UsernamePasswordAuthenticationFilter.class)
+    ;
+    return httpSecurity.build();
 
-    }
+  }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
 
 }
