@@ -64,7 +64,7 @@ public class PostService {
 
   }
 
-  @Transactionals
+  @Transactional
   public Post updatePost(String id, UpdatePostRequest inputPost) {
 
     Long writerIdx = memberService.getUserIdx(id);
