@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.controller;
 
-import com.zerobase.communityproject.domain.Post;
+import com.zerobase.communityproject.entity.Post;
 import com.zerobase.communityproject.model.request.CreatePostRequest;
 import com.zerobase.communityproject.model.request.UpdatePostRequest;
 import com.zerobase.communityproject.service.MemberService;
@@ -53,7 +53,7 @@ public class PostController {
   @PostMapping
   public ResponseEntity<Post> createPost(@Valid @RequestBody CreatePostRequest post) {
     String id = memberService.getId();
-    return ResponseEntity.ok(postService.createPost(id, post));
+    return ResponseEntity.status(201).body(postService.createPost(id, post));
   }
 
   @PutMapping

@@ -24,7 +24,7 @@ public class CommentController {
   @PostMapping
   public ResponseEntity<?> newComment(@Valid @RequestBody CommentRequest commentRequest) {
     commentRequest.setUser(memberService.getId());
-    return ResponseEntity.ok(commentService.createComment(commentRequest));
+    return ResponseEntity.status(201).body(commentService.createComment(commentRequest));
   }
 
   @PutMapping
