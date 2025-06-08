@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.repository;
 
-import com.zerobase.communityproject.domain.Member;
+import com.zerobase.communityproject.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

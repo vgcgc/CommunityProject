@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.service;
 
-import com.zerobase.communityproject.domain.Refresh;
+import com.zerobase.communityproject.entity.Refresh;
 import com.zerobase.communityproject.jwt.JWTUtil;
 import com.zerobase.communityproject.repository.RefreshRepository;
 import io.jsonwebtoken.ExpiredJwtException;

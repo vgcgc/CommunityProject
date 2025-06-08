@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.repository;
 
-import com.zerobase.communityproject.domain.Refresh;
+import com.zerobase.communityproject.entity.Refresh;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

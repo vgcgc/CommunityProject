@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.jwt;
 
-import com.zerobase.communityproject.domain.Refresh;
+import com.zerobase.communityproject.entity.Refresh;
 import com.zerobase.communityproject.repository.RefreshRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;

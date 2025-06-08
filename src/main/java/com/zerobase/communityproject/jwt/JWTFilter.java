@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.jwt;
 
-import com.zerobase.communityproject.domain.Member;
+import com.zerobase.communityproject.entity.Member;
 import com.zerobase.communityproject.model.CustomUserDetails;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;

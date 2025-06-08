@@ -1,7 +1,7 @@
 package com.zerobase.communityproject;
 
-import com.zerobase.communityproject.domain.Member;
-import com.zerobase.communityproject.domain.Post;
+import com.zerobase.communityproject.entity.Member;
+import com.zerobase.communityproject.entity.Post;
 import com.zerobase.communityproject.model.request.CreatePostRequest;
 import com.zerobase.communityproject.repository.MemberRepository;
 import com.zerobase.communityproject.service.PostService;
