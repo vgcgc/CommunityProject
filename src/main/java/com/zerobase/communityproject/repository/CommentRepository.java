@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.repository;
 
-import com.zerobase.communityproject.domain.Comment;
+import com.zerobase.communityproject.entity.Comment;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

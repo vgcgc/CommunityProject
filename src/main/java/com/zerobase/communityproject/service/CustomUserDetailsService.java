@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.service;
 
-import com.zerobase.communityproject.domain.Member;
+import com.zerobase.communityproject.entity.Member;
 import com.zerobase.communityproject.model.CustomUserDetails;
 import com.zerobase.communityproject.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

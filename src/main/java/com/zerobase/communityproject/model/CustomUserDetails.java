@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.model;
 
-import com.zerobase.communityproject.domain.Member;
+import com.zerobase.communityproject.entity.Member;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;

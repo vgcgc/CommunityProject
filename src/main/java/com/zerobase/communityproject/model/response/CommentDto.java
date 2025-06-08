@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.model.response;
 
-import com.zerobase.communityproject.domain.Comment;
+import com.zerobase.communityproject.entity.Comment;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
