@@ -1,6 +1,6 @@
 package com.zerobase.communityproject.service;
 
-import com.zerobase.communityproject.domain.Post;
+import com.zerobase.communityproject.entity.Post;
 import com.zerobase.communityproject.exception.CustomException;
 import com.zerobase.communityproject.exception.ErrorCode;
 import com.zerobase.communityproject.model.request.CreatePostRequest;
@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +39,7 @@ public class PostService {
 
   public PostComment getPostInfo(String title, String writer) {
     Post post = postRepository.findByTitleAndWriterId(title, memberService.getUserIdx(writer))
-        .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
+        .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
     List<CommentDto> comments = commentRepository.findAllByPostId(post.getId())
         .stream().map(CommentDto::new).collect(Collectors.toList());
     return new PostComment(post, comments);
@@ -52,7 +51,7 @@ public class PostService {
 
     Long writerIdx = memberService.getUserIdx(id);
     if (postRepository.existsByTitleAndWriterId(inputPost.getTitle(), writerIdx)) {
-      throw new CustomException(HttpStatus.BAD_REQUEST, ErrorCode.TITLE_IS_DUPLICATE);
+      throw new CustomException(ErrorCode.TITLE_IS_DUPLICATE);
     }
 
     return Post.builder()
@@ -69,12 +68,12 @@ public class PostService {
 
     Long writerIdx = memberService.getUserIdx(id);
     Post post = postRepository.findByTitleAndWriterId(inputPost.getTitle(), writerIdx)
-        .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, ErrorCode.POST_IS_NOT_FOUND));
+        .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
 
     if (inputPost.getTitle() != null) {
-      post.setTitle(inputPost.getTitle());
+      post.updateTitle(inputPost.getTitle());
     } else {
-      post.setContent(inputPost.getContent());
+      post.updateContent(inputPost.getContent());
     }
     return post;
   }
