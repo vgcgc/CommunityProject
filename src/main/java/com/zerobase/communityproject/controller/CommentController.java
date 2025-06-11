@@ -28,13 +28,13 @@ public class CommentController {
   }
 
   @PutMapping
-  public ResponseEntity<?> updateComment(@RequestBody CommentRequest commentRequest) {
+  public ResponseEntity<?> updateComment(@Valid @RequestBody CommentRequest commentRequest) {
     commentRequest.setUser(memberService.getId());
     return ResponseEntity.ok(commentService.updateComment(commentRequest));
   }
 
   @DeleteMapping
-  public ResponseEntity<?> deleteComment(@RequestBody CommentRequest commentRequest) {
+  public ResponseEntity<?> deleteComment(@Valid @RequestBody CommentRequest commentRequest) {
     commentRequest.setUser(memberService.getId());
     return ResponseEntity.ok(commentService.deleteComment(commentRequest));
   }
