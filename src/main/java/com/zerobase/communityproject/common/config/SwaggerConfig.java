@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-  String loginName = "Authentication";
+  String projectName = "Community Project";
 
   @Bean
   public OpenAPI customOpenAPI() {
-    Info info = new Info().title(loginName).version("1.0");
+    Info info = new Info().title(projectName).version("1.0");
 
     Server localServer = new Server();
     localServer.setUrl("http://localhost:8080");
@@ -26,8 +26,8 @@ public class SwaggerConfig {
     return new OpenAPI()
         .info(info)
         .servers(List.of(localServer))
-        .addSecurityItem(new SecurityRequirement().addList(loginName))
-        .components(new Components().addSecuritySchemes(loginName, securityScheme()));
+        .addSecurityItem(new SecurityRequirement().addList(projectName))
+        .components(new Components().addSecuritySchemes(projectName, securityScheme()));
   }
 
   private SecurityScheme securityScheme() {
@@ -36,7 +36,7 @@ public class SwaggerConfig {
         .bearerFormat("JWT")
         .scheme("bearer")
         .in(SecurityScheme.In.HEADER)
-        .name(loginName);
+        .name(projectName);
   }
 
 }
