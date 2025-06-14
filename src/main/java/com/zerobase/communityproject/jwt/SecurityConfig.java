@@ -4,6 +4,7 @@ import com.zerobase.communityproject.repository.RefreshRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,6 +28,10 @@ public class SecurityConfig {
   private final String[] swaggerPath = {"/", "/swagger-ui/**", "/swagger-resources/**", "/error",
       "/v3/api-docs/**"};
 
+  private final String[] permitPath = {
+      "/member", "/reissue", "/post"
+  };
+
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
@@ -47,9 +52,7 @@ public class SecurityConfig {
             sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         // 해당 API 에 대해서는 모든 요청을 허가
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-            .requestMatchers("/member").permitAll()
-            .requestMatchers("/reissue").permitAll()
-            .requestMatchers("/post").permitAll()
+            .requestMatchers(HttpMethod.GET, permitPath).permitAll()
             .requestMatchers(swaggerPath).permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
