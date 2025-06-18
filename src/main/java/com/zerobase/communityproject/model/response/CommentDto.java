@@ -5,10 +5,8 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 public class CommentDto {
@@ -19,7 +17,7 @@ public class CommentDto {
 
   public CommentDto(Comment comment) {
     this.text = comment.getText();
-    this.writer = comment.getWriter();
-    this.createdAt = comment.getCreatedAt();
+    this.writer = comment.getWriter().getId();
+    this.createdAt = comment.getCreatedDate();
   }
 }
