@@ -5,7 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,19 +21,22 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Post {
+public class Post extends Base{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(name = "writer_id")
-  private Long writerId;
+
   private String title;
+
   private String content;
-  @Column(name = "create_date")
-  @CreationTimestamp
-  private LocalDateTime createdAt = LocalDateTime.now();
-  private String writer;
+
+  @ManyToOne
+  @JoinColumn
+  private Member writer;
+
+  @OneToMany(mappedBy = "post")
+  private List<Comment> comments;
 
   public void updateTitle(String title) {
     this.title = title;
