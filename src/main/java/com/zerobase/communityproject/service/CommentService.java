@@ -1,6 +1,7 @@
 package com.zerobase.communityproject.service;
 
 import com.zerobase.communityproject.entity.Comment;
+import com.zerobase.communityproject.entity.Member;
 import com.zerobase.communityproject.entity.Post;
 import com.zerobase.communityproject.exception.CustomException;
 import com.zerobase.communityproject.exception.ErrorCode;
@@ -23,17 +24,17 @@ public class CommentService {
   @Transactional
   public CommentDto createComment(CommentRequest request) {
 
-    Long writerIdx = memberService.getUserIdx(request.getUser());
-    Post post = postRepository.findByTitleAndWriterId(request.getPostTitle(), writerIdx)
-        .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
-
-    Comment comment = Comment.builder()
-        .writerId(writerIdx)
-        .postId(post.getId())
-        .text(request.getText())
-        .writer(request.getUser()).build();
-
-    return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedAt());
+//    Member writer = request.getUser();
+//    Post post = postRepository.findByTitleAndWriterId(request.getPostTitle(), writerIdx)
+//        .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
+//
+//    Comment comment = Comment.builder()
+//        .post(post)
+//        .text(request.getText())
+//        .writer(request.getUser()).build();
+//
+//    return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedDate());]
+    return null;
   }
 
   public CommentDto updateComment(CommentRequest request) {
@@ -43,7 +44,8 @@ public class CommentService {
     comment.updateText(request.getText());
     commentRepository.save(comment);
 
-    return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedAt());
+    //return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedDate());
+    return null;
   }
 
   public String deleteComment(CommentRequest request) {
@@ -59,8 +61,9 @@ public class CommentService {
     Post post = postRepository.findByTitleAndWriterId(request.getPostTitle(), writerIdx)
         .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
 
-    return commentRepository.findCommentByWriterIdAndPostIdAndCreatedAt(writerIdx, post.getId(),
-            request.getCreatedAt())
-        .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
+//    return commentRepository.findCommentByWriterIdAndPostIdAndCreatedDate(writerIdx, post.getId(),
+//            request.getCreatedAt())
+//        .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
+    return null;
   }
 }

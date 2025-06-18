@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-  Optional<Comment> findCommentByWriterIdAndPostIdAndCreatedAt(Long writerId, Long postId,
-      LocalDateTime createdAt);
+  Optional<Comment> findCommentByWriterIdAndPostIdAndCreatedDate(String writer_id, Long post_id,
+      LocalDateTime createdDate);
 
   List<Comment> findAllByPostId(Long postId);
 }
