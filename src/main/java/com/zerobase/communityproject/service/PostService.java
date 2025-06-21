@@ -1,5 +1,6 @@
 package com.zerobase.communityproject.service;
 
+import com.zerobase.communityproject.entity.Member;
 import com.zerobase.communityproject.entity.Post;
 import com.zerobase.communityproject.exception.CustomException;
 import com.zerobase.communityproject.exception.ErrorCode;
@@ -8,6 +9,7 @@ import com.zerobase.communityproject.model.request.UpdatePostRequest;
 import com.zerobase.communityproject.model.response.CommentDto;
 import com.zerobase.communityproject.model.response.PostComment;
 import com.zerobase.communityproject.repository.CommentRepository;
+import com.zerobase.communityproject.repository.MemberRepository;
 import com.zerobase.communityproject.repository.PostRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +25,7 @@ public class PostService {
 
   private final PostRepository postRepository;
   private final MemberService memberService;
+  private final MemberRepository memberRepository;
   private final CommentRepository commentRepository;
 
   public Page<Post> getPostList(Pageable pageable) {
@@ -49,16 +52,15 @@ public class PostService {
   @Transactional
   public Post createPost(String id, CreatePostRequest inputPost) {
 
-    Long writerIdx = memberService.getUserIdx(id);
-    if (postRepository.existsByTitleAndWriterId(inputPost.getTitle(), writerIdx)) {
+    Member writer = memberRepository.findById(id);
+    if (postRepository.existsByTitleAndWriterId(inputPost.getTitle(), writer.getIdx())) {
       throw new CustomException(ErrorCode.TITLE_IS_DUPLICATE);
     }
 
     return Post.builder()
-        .writerId(writerIdx)
+        .writer(writer)
         .title(inputPost.getTitle())
         .content(inputPost.getContent())
-        .writer(id)
         .build();
 
   }
