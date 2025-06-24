@@ -12,13 +12,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
   Page<Post> findFirstByOrderByIdDesc(Pageable pageable);
 
-  Boolean existsByTitleAndWriterId(String title, Long writerId);
+  Boolean existsByTitleAndMember_Idx(String title, Long writer);
 
-  void deleteByTitleAndWriter(String title, String writer);
+  void deleteByTitleAndMember_Idx(String title, Long writer);
 
-  Optional<Post> findByTitleAndWriterId(String title, Long writerIdx);
+  Optional<Post> findByTitleAndMember_Idx(String title, Long writer);
 
-  Page<Post> findAllByWriterId(Long writerIdx, Pageable pageable);
+  Page<Post> findAllByMember_Id(String member_id, Pageable pageable);
 
   Page<Post> findAllByTitle(String title, Pageable pageable);
 }

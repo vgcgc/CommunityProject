@@ -17,7 +17,7 @@ public class CommentDto {
 
   public CommentDto(Comment comment) {
     this.text = comment.getText();
-    this.writer = comment.getWriter().getId();
+    this.writer = comment.getMember().getId();
     this.createdAt = comment.getCreatedDate();
   }
 }

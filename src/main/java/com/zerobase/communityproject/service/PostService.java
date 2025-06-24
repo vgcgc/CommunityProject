@@ -33,7 +33,7 @@ public class PostService {
   }
 
   public Page<Post> getMyPost(String writer, Pageable pageable) {
-    return postRepository.findAllByWriterId(memberService.getUserIdx(writer), pageable);
+    return postRepository.findAllByMember_Id(memberService.getId(), pageable); // 여기 변경
   }
 
   public Page<Post> searchingPost(String title, Pageable pageable) {
@@ -41,7 +41,7 @@ public class PostService {
   }
 
   public PostComment getPostInfo(String title, String writer) {
-    Post post = postRepository.findByTitleAndWriterId(title, memberService.getUserIdx(writer))
+    Post post = postRepository.findByTitleAndMember_Idx(title, memberService.getUserIdx(writer)) // 여기 변경
         .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
     List<CommentDto> comments = commentRepository.findAllByPostId(post.getId())
         .stream().map(CommentDto::new).collect(Collectors.toList());
@@ -53,12 +53,12 @@ public class PostService {
   public Post createPost(String id, CreatePostRequest inputPost) {
 
     Member writer = memberRepository.findById(id);
-    if (postRepository.existsByTitleAndWriterId(inputPost.getTitle(), writer.getIdx())) {
+    if (postRepository.existsByTitleAndMember_Idx(inputPost.getTitle(), writer.getIdx())) {
       throw new CustomException(ErrorCode.TITLE_IS_DUPLICATE);
     }
 
     return Post.builder()
-        .writer(writer)
+        .member(writer)
         .title(inputPost.getTitle())
         .content(inputPost.getContent())
         .build();
@@ -69,7 +69,7 @@ public class PostService {
   public Post updatePost(String id, UpdatePostRequest inputPost) {
 
     Long writerIdx = memberService.getUserIdx(id);
-    Post post = postRepository.findByTitleAndWriterId(inputPost.getTitle(), writerIdx)
+    Post post = postRepository.findByTitleAndMember_Idx(inputPost.getTitle(), writerIdx)
         .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
 
     if (inputPost.getTitle() != null) {
@@ -81,7 +81,8 @@ public class PostService {
   }
 
   public void deletePost(String title, String writer) {
-    postRepository.deleteByTitleAndWriter(title, writer);
+    Long writerIdx = memberService.getUserIdx(writer);
+    postRepository.deleteByTitleAndMember_Idx(title, writerIdx);
   }
 
 }

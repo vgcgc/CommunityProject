@@ -17,7 +17,7 @@ public class PostComment {
   public PostComment(Post post, List<CommentDto> comments) {
     this.title = post.getTitle();
     this.content = post.getContent();
-    this.writer = post.getWriter().getName();
+    this.writer = post.getMember().getName();
     this.createdAt = post.getCreatedDate();
     this.comments = comments;
   }

@@ -1,7 +1,6 @@
 package com.zerobase.communityproject.service;
 
 import com.zerobase.communityproject.entity.Comment;
-import com.zerobase.communityproject.entity.Member;
 import com.zerobase.communityproject.entity.Post;
 import com.zerobase.communityproject.exception.CustomException;
 import com.zerobase.communityproject.exception.ErrorCode;
@@ -33,7 +32,7 @@ public class CommentService {
 //        .text(request.getText())
 //        .writer(request.getUser()).build();
 //
-//    return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedDate());]
+//    return new CommentDto(comment.getText(), comment.getWriter(), comment.getCreatedDate());
     return null;
   }
 
@@ -58,7 +57,7 @@ public class CommentService {
   private Comment getComment(CommentRequest request) {
     Long writerIdx = memberService.getUserIdx(request.getUser());
 
-    Post post = postRepository.findByTitleAndWriterId(request.getPostTitle(), writerIdx)
+    Post post = postRepository.findByTitleAndMember_Idx(request.getPostTitle(), writerIdx)
         .orElseThrow(() -> new CustomException(ErrorCode.POST_IS_NOT_FOUND));
 
 //    return commentRepository.findCommentByWriterIdAndPostIdAndCreatedDate(writerIdx, post.getId(),
