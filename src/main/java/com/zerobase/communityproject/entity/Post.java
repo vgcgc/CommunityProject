@@ -33,7 +33,7 @@ public class Post extends Base{
 
   @ManyToOne
   @JoinColumn
-  private Member writer;
+  private Member member;
 
   @OneToMany(mappedBy = "post")
   private List<Comment> comments;

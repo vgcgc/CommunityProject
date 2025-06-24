@@ -25,7 +25,7 @@ public class Comment extends Base {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn
-  private Member writer;
+  private Member member;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn

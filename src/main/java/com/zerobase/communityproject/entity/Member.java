@@ -27,10 +27,10 @@ public class Member extends Base {
   private String name;
   private String role;
 
-  @OneToMany(mappedBy = "post")
+  @OneToMany(mappedBy = "member")
   private List<Post> posts;
 
-  @OneToMany(mappedBy = "comment")
+  @OneToMany(mappedBy = "member")
   private List<Comment> comments;
 
   public Member(String id, String pw) {
