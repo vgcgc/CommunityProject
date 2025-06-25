@@ -52,7 +52,8 @@ public class PostService {
   @Transactional
   public Post createPost(String id, CreatePostRequest inputPost) {
 
-    Member writer = memberRepository.findById(id);
+    Member writer = memberRepository.findById(id)
+        .orElseThrow(() -> new CustomException(ErrorCode.WRITER_IS_NOT_FOUND));
     if (postRepository.existsByTitleAndMember_Idx(inputPost.getTitle(), writer.getIdx())) {
       throw new CustomException(ErrorCode.TITLE_IS_DUPLICATE);
     }

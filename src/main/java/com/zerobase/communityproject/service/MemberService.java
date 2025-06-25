@@ -50,11 +50,10 @@ public class MemberService {
   }
 
   public Long getUserIdx(String id) {
-    Member member = memberRepository.findById(id);
-    if (member == null) {
-      throw new CustomException(ErrorCode.WRITER_IS_NOT_FOUND);
-    }
-    return memberRepository.findById(id).getIdx();
+    Member member = memberRepository.findById(id)
+        .orElseThrow(() ->new CustomException(ErrorCode.WRITER_IS_NOT_FOUND));
+
+    return member.getIdx(); // TODO : 여기 바로 idx 조회쿼리로 변경
   }
 
 }
