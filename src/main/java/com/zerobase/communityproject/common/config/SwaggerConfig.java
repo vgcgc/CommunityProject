@@ -35,8 +35,7 @@ public class SwaggerConfig {
         .type(SecurityScheme.Type.HTTP)
         .bearerFormat("JWT")
         .scheme("bearer")
-        .in(SecurityScheme.In.HEADER)
-        .name(projectName);
+        .in(SecurityScheme.In.HEADER);
   }
 
 }
