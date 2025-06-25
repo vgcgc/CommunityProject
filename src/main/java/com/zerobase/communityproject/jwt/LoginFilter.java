@@ -50,14 +50,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     String role = auth.getAuthority();
 
     // 토큰 생성
-    String access = jwtUtil.createJwt("access", username, role, 600000L);
+    String access = jwtUtil.createJwt("Authorization", username, role, 600000L);
     String refresh = jwtUtil.createJwt("refresh", username, role, 86400000L);
 
     // Refresh 토큰 저장
     addRefreshEntity(username, refresh, 86400000L);
 
     // 응답 설정
-    res.setHeader("access", access);
+    res.setHeader("Authorization", access);
     res.addCookie(createCookie("refresh", refresh));
     res.setStatus(HttpStatus.OK.value());
   }

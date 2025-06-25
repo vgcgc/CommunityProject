@@ -58,14 +58,14 @@ public class RefreshService {
     String username = jwtUtil.getUsername(refresh);
     String role = jwtUtil.getRole(refresh);
 
-    String newAccess = jwtUtil.createJwt("access", username, role, 600000L); // 10분
+    String newAccess = jwtUtil.createJwt("Authorization", username, role, 600000L); // 10분 TODO : properties 값으로 연결
     String newRefresh = jwtUtil.createJwt("refresh", username, role, 86400000L); // 24시간
 
     // Refresh 토큰 저장 DB 에 기존의 Refresh 토큰 삭제 후 새 Refresh 토큰 저장
     refreshRepository.deleteByRefresh(refresh);
     addRefreshEntity(username, refresh, 86400000L);
 
-    response.setHeader("access", newAccess);
+    response.setHeader("Authorization", newAccess);
     response.addCookie(createCookie("refresh", newRefresh));
 
     return new ResponseEntity<>(HttpStatus.OK);
