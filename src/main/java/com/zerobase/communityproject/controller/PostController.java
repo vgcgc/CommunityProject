@@ -5,11 +5,15 @@ import com.zerobase.communityproject.model.request.CreatePostRequest;
 import com.zerobase.communityproject.model.request.UpdatePostRequest;
 import com.zerobase.communityproject.service.MemberService;
 import com.zerobase.communityproject.service.PostService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +38,10 @@ public class PostController {
   }
 
   @GetMapping("/{writer}")
-  public ResponseEntity<Page<Post>> getMyPosts(@PathVariable String writer,
-      final Pageable pageable) {
+  public ResponseEntity<Page<Post>> getMyPosts(
+      @Parameter(name = "writer", in = ParameterIn.PATH) @PathVariable String writer,
+      final Pageable pageable, @AuthenticationPrincipal UserDetails userDetails) {
+    // TODO : pageable 기본값 설정하기
     return ResponseEntity.ok(postService.getMyPost(writer, pageable));
   }
 
