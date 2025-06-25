@@ -52,6 +52,7 @@ public class SecurityConfig {
             sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         // 해당 API 에 대해서는 모든 요청을 허가
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+            .requestMatchers(HttpMethod.POST, "/member/join").permitAll()
             .requestMatchers(HttpMethod.GET, permitPath).permitAll()
             .requestMatchers(swaggerPath).permitAll()
             .anyRequest().authenticated())
