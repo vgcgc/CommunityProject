@@ -1,13 +1,9 @@
 package com.zerobase.communityproject.model.request;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
-@AllArgsConstructor
 public class JoinRequest {
 
   @NotBlank(message = "아이디는 필수 입력값입니다.")
